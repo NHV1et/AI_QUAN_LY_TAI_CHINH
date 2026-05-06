@@ -1,0 +1,12 @@
+# Goi model
+llama-index-llms-ollama
+llama-index-embeddings-huggingface
+# RAG
+llama-index
+#GUI
+#streamlit
+#Xu li DL
+sentence-transformers
+pypdf
+pandas
+openpyxl

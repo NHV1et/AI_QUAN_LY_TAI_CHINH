@@ -1,0 +1,28 @@
+FROM ./llama-3.2-3b-instruct.Q4_K_M.gguf
+
+# 1. GIỚI HẠN CONTEXT (CỰC KỲ QUAN TRỌNG)
+# Mặc định Ollama có thể tự set lên 32k hoặc 128k tùy model, ngốn RAM kinh khủng.
+# Với máy 16GB, set 4096 (4k) là mức "vàng" để vừa đủ thông minh vừa nhẹ.
+PARAMETER num_ctx 4096
+
+# 2. GIỚI HẠN LUỒNG XỬ LÝ (Để máy không bị treo cứng khi AI đang nghĩ)
+# Nếu CPU bạn có 8 nhân, hãy set khoảng 4-6.
+PARAMETER num_thread 4
+
+
+PARAMETER temperature 0.1
+PARAMETER repeat_penalty 1.3
+PARAMETER top_p 0.9
+
+# Template và System giữ nguyên vì đã đúng chuẩn Llama 3.2
+TEMPLATE """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+{{ .System }}<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+{{ .Prompt }}<|eot_id|><|start_header_id|>assistant<|end_header_id|>"""
+
+SYSTEM """
+Bạn là AI Agent quản lý tài chính chuyên nghiệp. 
+Khi nhận được yêu cầu phân bổ tiền, bạn PHẢI đưa ra bảng số liệu cụ thể dựa trên tỷ lệ (%) và số tiền (VND).
+Phong cách: Kỷ luật, số liệu rõ ràng, không nói suông.
+"""
