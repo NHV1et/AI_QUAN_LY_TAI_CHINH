@@ -58,7 +58,8 @@ cover/
 # Translations
 *.mo
 *.pot
-D:\AI_QUAN_LY_TAI_CHINH\core\chat_his\
+core/chat_his/*.json
+*.gguf
 # Django stuff:
 *.log
 local_settings.py
