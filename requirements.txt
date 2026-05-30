@@ -1,12 +1,20 @@
 # Goi model
 llama-index-llms-ollama
 llama-index-embeddings-huggingface
-# RAG
+
+# RAG: Phá các file PDF thành các chuỗi cho máy đọc hiểu
+# Về sau dùng thêm các embed model để trích xuất thông tin liên quan, tăng hiệu quả trả lời.
+
 llama-index
-#GUI
-#streamlit
+#GUI là streamlit
+streamlit
 #Xu li DL
-sentence-transformers
-pypdf
-pandas
-openpyxl
+sentence-transformers #Phân tích văn bản, trích xuất thông tin, tạo embedding
+
+pypdf #Xử lý file PDF
+
+pandas #Xử lý dữ liệu bảng
+
+openpyxl #Xử lý file Excel 
+
+# Về sau làm báo cáo thì bịa thêm công dụng hay làm rõ hơn.

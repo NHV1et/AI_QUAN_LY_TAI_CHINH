@@ -2,13 +2,13 @@ import streamlit as st
 import os
 from datetime import datetime
 import core.utils.chat_control as cc
-from llama_index.core.base.llms.types import ChatMessage, MessageRole
+#from llama_index.core.base.llms.types import ChatMessage, MessageRole
 def init_page_config():
     st.title("💰 Hybrid Finance AI Agent")
     st.caption("AI Chatbot tư vấn tài chính do NHV đẹp trai phát triển")
 
 def render_ui(query_engine, save_func, load_func, history_dir):
-    # --- 1. SIDEBAR: QUẢN LÝ LỊCH SỬ ---
+    # Sidebar lịch sử chat
     with st.sidebar:
         st.title("💬 Finance AI")
         if st.button("➕ Cuộc trò chuyện mới", use_container_width=True):
@@ -88,12 +88,13 @@ def render_ui(query_engine, save_func, load_func, history_dir):
                 # con Ai không bị treo, nó đang load thôi
                 with st.spinner("Đang suy nghĩ..."):
                 
-                    response = query_engine.query(prompt)
+                    #response = query_engine.query(prompt) # Ở đây
+                    response = query_engine.stream_chat(prompt)
 
                     if hasattr(response, "response_gen"):
                         full_response = st.write_stream(response.response_gen)
                     else:
-                        full_response = st.write(str(response))
+                        full_response = st.write_stream(str(response.response_gen))
             
         st.session_state.messages.append({"role": "assistant", "content": full_response})
         
@@ -111,11 +112,7 @@ def render_ui(query_engine, save_func, load_func, history_dir):
         
         st.rerun()
 
-        # Sau này bổ sung thêm sửa tên đoạn chat với xóa đoạn chat rồi 
-        # Thì ném lại vô đây do người dùng thao tác trên giao diện là chủ yếu mà 
-        # Mà nhớ là viết ở trong cái utils/chat_control nhé do t tổ chức theo kiểu modules
-        # Để về sau cần sửa chỗ nào thì chỉ việc sửa chỗ đấy thôi cho code đỡ ngu.
-        # T cũng note ở bên chat_control rồi#
+        
 
 
         
